@@ -96,27 +96,27 @@ new Responder({
             const member = await db.members.findOne({ id: interaction.member.id }).populate("breves").exec();
             if (!member) return;
 
-            const breve = member.breves.find((breve) => breve._id);
+            const breve = member.breves.find((breve) => breve.breve?.toString() === id);
             if (!breve) return;
 
             breve.done = parsedResult.data.done === "false" ? false : true;
             breve.pontos = parseInt(parsedResult.data.pontos);
 
-            breve.save();
+            member.save();
 
             interaction.update(options);
             return;
         }
         const member = await db.members.findOne({ id: interaction.member.id }).populate("breves").exec();
         if (!member) return;
-
-        const breve = member.breves.find((breve) => breve._id);
+        
+        const breve = member.breves.find((breve) => breve._id.toString() === id);
         if (!breve) return;
 
         breve.done = parsedResult.data.done === "false" ? false : true;
         breve.pontos = parseInt(parsedResult.data.pontos);
 
-        breve.save();
+        member.save();
         interaction.reply(options);
         return;
     },
