@@ -1,7 +1,7 @@
 import { Responder, ResponderType } from "#base";
 import { db } from "#database";
 import { menus } from "#menus";
-import { changeAluno } from "modals/forms/change_aluno.js";
+import { changeAluno } from "#modals";
 
 new Responder({
     customId: "stsi/breve/:menu/:id",
