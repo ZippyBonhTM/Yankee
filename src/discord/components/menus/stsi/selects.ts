@@ -60,7 +60,7 @@ new Responder({
                 if (!member) return;
 
                 const objectId = new Types.ObjectId(id);
-                const alunoData = member.breves.push({ breve: objectId });
+                member.breves.push({ breve: objectId });
                 await member.save();
             }
         }

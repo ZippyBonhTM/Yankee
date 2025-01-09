@@ -1,6 +1,7 @@
 import { Responder, ResponderType } from "#base";
 import { db } from "#database";
 import { menus } from "#menus";
+import { changeAluno } from "modals/forms/change_aluno.js";
 
 new Responder({
     customId: "stsi/breve/:menu/:id",
@@ -12,7 +13,7 @@ new Responder({
             case "matricula": {
                 interaction.editReply(menus.stsi.breve.matricula(id));
                 return;
-            }
+            };
         }
     },
 });
@@ -39,5 +40,15 @@ new Responder({
                 return;
             }
         }
+    },
+});
+
+new Responder({
+    customId: "aluno/edit/:id",
+    type: ResponderType.Button, cache: "cached",
+    async run(interaction, { id }) {
+        console.log("aqui");
+        interaction.showModal(changeAluno({}, id));
+        return;
     },
 });

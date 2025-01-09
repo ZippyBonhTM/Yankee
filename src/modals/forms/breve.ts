@@ -80,7 +80,7 @@ new Responder({
             const embed = createEmbed({
                 color: settings.colors.danger,
                 description: brBuilder(
-                    "O formulário tem campos incorretos!",
+                    "O formulário têm campos incorretos!",
                     parsedResult.error.errors.map(err => `- ${inlineCode(err.message)}`)
                 )
             });

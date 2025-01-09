@@ -1,13 +1,12 @@
 import { BreveSchema } from "#database";
 import { settings } from "#settings";
 import { brBuilder, createEmbed, createRow } from "@magicyan/discord";
-import { User } from "discord.js";
+import { ButtonBuilder, ButtonStyle, User } from "discord.js";
 import { alunoBreveType } from "discord/components/menus/stsi/selects.js";
 import { stsiMenu } from "./index.js";
+import { BreveSchemaType } from "./main.js";
 
-// FAZER UM MODAL COM ZOD PARA UM BOTÃO DE EDIÇÃO DOS DADOS DO ALUNO
-
-export function stsiAlunoMenu(breveData: BreveSchema, alunoData: alunoBreveType ,member: User) {
+export function stsiAlunoMenu(breveData: BreveSchema & BreveSchemaType, alunoData: alunoBreveType, member: User) {
     const embed = createEmbed({
         description: brBuilder(
             "DADOS DO ALUNO",
@@ -22,7 +21,12 @@ export function stsiAlunoMenu(breveData: BreveSchema, alunoData: alunoBreveType 
     });
 
     const navRow = createRow(
-       stsiMenu.nav.main
+       stsiMenu.nav.main,
+       new ButtonBuilder({
+        customId: `aluno/edit/${breveData._id.toString()}`,
+        label: "Editar",
+        style: ButtonStyle.Primary,
+        }),
     );
 
     return { ephemeral, embeds: [embed], components: [navRow] };

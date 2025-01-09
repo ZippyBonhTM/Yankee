@@ -67,10 +67,11 @@ new Responder({
             const embed = createEmbed({
                 color: settings.colors.danger,
                 description: brBuilder(
-                    "O formulário tem campos incorretos!",
+                    "O formulário têm campos incorretos!",
                     parsedResult.error.errors.map(err => `- ${inlineCode(err.message)}`)
                 )
             });
+            
             const row = createRow(
                 new ButtonBuilder({
                     customId: `member/cadastre/${Object.values(rawData).join(",")}`,
@@ -90,7 +91,7 @@ new Responder({
 
         const options = { ephemeral, content: "Formulário enviado.", embeds: [], components: [] };
         if (interaction.isFromMessage()) {
-            const member = await db.members.create({
+            await db.members.create({
                 id: interaction.member.id,
                 guildId: interaction.guildId,
                 codename: parsedResult.data.codename,
@@ -99,12 +100,13 @@ new Responder({
             interaction.update(options);
             return;
         }
-        const member = await db.members.create({
+        await db.members.create({
             id: interaction.member.id,
             guildId: interaction.guildId,
             codename: parsedResult.data.codename,
             bloodType: parsedResult.data.bloodtype
         })
         interaction.reply(options);
+        return;
     }
 })
