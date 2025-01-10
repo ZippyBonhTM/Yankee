@@ -6,9 +6,13 @@ new Command({
     name: "make_breve",
     description: "Exibe um modal para criar um brevê",
     dmPermission: false,
-    defaultMemberPermissions: "CreateEvents",
     type: ApplicationCommandType.ChatInput,
     async run(interaction){
-        interaction.showModal(breveModal());
+        const isInstructor = interaction.member.roles.cache.get("1327017887000432640");
+        if (isInstructor) {
+            interaction.showModal(breveModal());
+        } else {
+            interaction.reply({ ephemeral, content: "Você precisa ser um instrutor para usar esse comando" });
+        }
     }
 });
