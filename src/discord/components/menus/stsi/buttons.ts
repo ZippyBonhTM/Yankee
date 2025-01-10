@@ -2,6 +2,9 @@ import { Responder, ResponderType } from "#base";
 import { db } from "#database";
 import { menus } from "#menus";
 import { changeAluno } from "#modals";
+import { settings } from "#settings";
+import { createEmbed, createEmbedAuthor } from "@magicyan/discord";
+import { WebhookClient } from "discord.js";
 
 new Responder({
     customId: "stsi/breve/:menu/:id",
@@ -12,6 +15,26 @@ new Responder({
         switch (menu) {
             case "matricula": {
                 interaction.editReply(menus.stsi.breve.matricula(id));
+                return;
+            };
+            case "remove": {
+                if (!process.env.WEBHOOK_LOGS_URL) return;
+
+                const breve = await db.breve.findByIdAndDelete(id).exec();
+                
+                const embed = createEmbed({
+                    title: "BREVE DELETADO",
+                    author: createEmbedAuthor(interaction.client.user),
+                    fields: [
+                        { name: "Infrator:", value: interaction.user.id, inline },
+                        { name: "Breve deletado:", value: breve?.name, inline },
+                        { name: "Alunos Afetados:", value: breve?.alunos.length.toString() },
+                    ],
+                    color: settings.colors.warning,
+                });
+
+                new WebhookClient({ url: process.env.WEBHOOK_LOGS_URL })
+                .send({ embeds: [embed] })
                 return;
             };
         }

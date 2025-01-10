@@ -1,7 +1,8 @@
 import { Responder, ResponderType } from "#base";
-import { db } from "#database";
+import { BreveSchema, db } from "#database";
 import { menus } from "#menus";
 import { findMember } from "@magicyan/discord";
+import { BreveSchemaType } from "menus/stsi/main.js";
 import { Types } from "mongoose";
 
 export type alunoBreveType = Types.Subdocument<Types.ObjectId, any, {
@@ -62,6 +63,17 @@ new Responder({
                 const objectId = new Types.ObjectId(id);
                 member.breves.push({ breve: objectId });
                 await member.save();
+
+                const guildData = await db.guilds.get(guild.id);
+                const brevesData: Array<BreveSchema & BreveSchemaType> = [];
+                for (let i = 0; i < guildData.breves.length; i++) {
+                    let breve = await db.breve.findById(guildData.breves[i]).populate("alunos").exec();
+                    if (breve) {
+                        brevesData.push(breve);
+                    };
+                };
+
+                interaction.editReply(menus.stsi.main(brevesData, guild));
             }
         }
     }

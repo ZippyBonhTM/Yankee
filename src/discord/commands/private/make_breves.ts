@@ -6,7 +6,7 @@ new Command({
     name: "make_breve",
     description: "Exibe um modal para criar um brevê",
     dmPermission: false,
-    defaultMemberPermissions: "Administrator",
+    defaultMemberPermissions: "CreateEvents",
     type: ApplicationCommandType.ChatInput,
     async run(interaction){
         interaction.showModal(breveModal());

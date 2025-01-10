@@ -14,7 +14,7 @@ export function stsiMainMenu(breveData: Array<BreveSchema & BreveSchemaType>, gu
         color: settings.colors.primary,
         description: "Este sistema é projetado para oferecer uma plataforma unificada de treinamento e simulação, permitindo que ambos os ramos das Forças Armadas utilizem as mesmas ferramentas e recursos para melhorar a eficiência e a eficácia dos treinamentos.",
         thumbnail: guild.iconURL(),
-    })
+    });
 
     const row = createRow(
         new StringSelectMenuBuilder({
@@ -22,7 +22,11 @@ export function stsiMainMenu(breveData: Array<BreveSchema & BreveSchemaType>, gu
             placeholder: "Análise de brevê",
             options: breveData.map((breve) => { return { label: breve.name, value: breve._id.toString() } })
         })
-    )
+    );
 
-    return { ephemeral, embeds: [embed], components: [row] }
-}
+    if (breveData.length > 0) {
+        return { ephemeral, embeds: [embed], components: [row] };
+    } else {
+        return { ephemeral, embeds: [embed], components: [] };
+    };
+};

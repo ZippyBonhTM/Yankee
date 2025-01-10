@@ -6,6 +6,7 @@ import {  UserSelectMenuBuilder } from "discord.js";
 export function stsiMatriculaMenu(breveId: string) {
     const embed = createEmbed({
         title: "Matricule um novo aluno",
+        description: "Matriule alguém que tenha feito o cadastro.",
         color: settings.colors.yellow
     });
 
@@ -17,7 +18,7 @@ export function stsiMatriculaMenu(breveId: string) {
         new UserSelectMenuBuilder({
             customId: `stsi/breve/matricula/${breveId}`,
             placeholder: "Selecione um Usuário",
-            max_values: 1
+            max_values: 1,
         })
     );
 

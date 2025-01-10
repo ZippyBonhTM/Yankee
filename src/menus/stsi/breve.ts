@@ -23,9 +23,15 @@ export function stsiBreveMainMenu(breveData: BreveSchema & BreveSchemaType ) {
             customId: `stsi/breve/matricula/${breveData._id.toString()}`,
             label: "Matricular",
             style: ButtonStyle.Primary
-        })
+        }),
+        // new ButtonBuilder({
+        //     customId: `stsi/breve/remove/${breveData._id.toString()}`,
+        //     label: "Deletar Brevê",
+        //     style: ButtonStyle.Danger
+        // })
     );
-    const singleRow = createRow(
+    
+    const firstRow = createRow(
         new UserSelectMenuBuilder({
             customId: `stsi/breve/user/${breveData._id.toString()}`,
             placeholder: "Consulte um usuário.",
@@ -37,5 +43,5 @@ export function stsiBreveMainMenu(breveData: BreveSchema & BreveSchemaType ) {
         menus.stsi.nav.main
     );
 
-    return { ephemeral, embeds: [embed], components: [singleRow, row, navRow] };
+    return { ephemeral, embeds: [embed], components: [firstRow, row, navRow] };
 }

@@ -101,7 +101,6 @@ new Responder({
 
             breve.done = parsedResult.data.done === "false" ? false : true;
             breve.pontos = parseInt(parsedResult.data.pontos);
-
             member.save();
 
             interaction.update(options);
