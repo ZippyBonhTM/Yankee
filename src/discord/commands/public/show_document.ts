@@ -22,7 +22,8 @@ new Command({
                 fields: [
                     { name: "Codenome:", value: memberDocument.codename, inline },
                     { name: "Tipo Sanguíneo:", value: memberDocument.bloodType, inline },
-                    { name: "Qnt. breves:", value: memberDocument.breves.length.toString() },
+                    { name: "Qnt. FO:", value: memberDocument.reputacao?.fo.toString(), inline },
+                    { name: "Qnt. breves:", value: memberDocument.breves.length.toString(), inline },
                 ]
             });
 
