@@ -31,7 +31,7 @@ export function breveModal(data: Partial<Record<keyof FormSchema, string>> = {})
                 customId: "description",
                 label: "Descrição do brevê",
                 placeholder: "Digite a descrição do brevê",
-                style: TextInputStyle.Short,
+                style: TextInputStyle.Paragraph,
                 value: data.description,
                 required
             }),
@@ -39,7 +39,7 @@ export function breveModal(data: Partial<Record<keyof FormSchema, string>> = {})
                 customId: "objectives",
                 label: "Objetivos do brevê",
                 placeholder: "Digite os objetivos do brevê",
-                style: TextInputStyle.Short,
+                style: TextInputStyle.Paragraph,
                 value: data.objectives,
                 required
             }),
@@ -47,7 +47,7 @@ export function breveModal(data: Partial<Record<keyof FormSchema, string>> = {})
                 customId: "topics",
                 label: "Tópicos do brevê",
                 placeholder: "Digite os tópicos do brevê",
-                style: TextInputStyle.Short,
+                style: TextInputStyle.Paragraph,
                 value: data.topics,
                 required
             }),
@@ -109,11 +109,13 @@ new Responder({
                 descripton: parsedResult.data.description,
                 detalhes: {
                     objetivos: parsedResult.data.objectives,
-                    topicos: parsedResult.data.topics.split(";")
+                    topicos: parsedResult.data.topics.split("; ")
                 },
                 guild: guild._id
             });
-            await guild.updateOne().set("breves", breve._id).exec();
+
+            guild.breves.push(breve._id);
+            await guild.save();
             interaction.update(options);
             return;
         }
@@ -123,11 +125,12 @@ new Responder({
             descripton: parsedResult.data.description,
             detalhes: {
                 objetivos: parsedResult.data.objectives,
-                topicos: parsedResult.data.topics.split(";")
+                topicos: parsedResult.data.topics.split("; ")
             },
             guild: guild._id
         });
-        await guild.updateOne().set("breves", breve._id).exec();
+        guild.breves.push(breve._id);
+        await guild.save();
         interaction.reply(options);
     },
 });

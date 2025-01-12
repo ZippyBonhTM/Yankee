@@ -20,7 +20,6 @@ new Command({
                     brevesData.push(breve);
                 };
             };
-    
             interaction.reply(menus.stsi.main(brevesData, guild));
         } else {
             interaction.reply({ ephemeral, content: "Você precisa ser um instrutor para usar esse comando" });

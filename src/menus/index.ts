@@ -3,5 +3,5 @@ import { stsiMenu } from "./stsi/index.js";
 
 export const menus = {
     settings: settingsMenu,
-    stsi: stsiMenu
+    stsi: stsiMenu,
 }
